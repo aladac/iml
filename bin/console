@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-
-require "bundler/setup"
-require "iml"
-require "pry"
-Pry.start(__FILE__)
