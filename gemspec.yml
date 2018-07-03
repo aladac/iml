@@ -1,0 +1,9 @@
+dependencies:
+  activesupport: ~> 5.2
+
+development_dependencies:
+  bundler: ~> 1.16
+  rake: ~> 12.3
+  rspec: ~> 3.7
+  pry: ~> 0.11
+  simplecov: ~> 0.16

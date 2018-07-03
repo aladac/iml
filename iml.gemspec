@@ -1,8 +1,10 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'iml/version'
+require 'yaml'
 
 Gem::Specification.new do |spec|
+  gemspec = YAML.load_file('gemspec.yml')
   spec.name          = 'iml'
   spec.version       = IML::VERSION
   spec.authors       = ['Adam Ladachowski']
@@ -31,9 +33,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.16'
-  spec.add_development_dependency 'pry', '~> 0.11'
-  spec.add_development_dependency 'rake', '~> 12.3'
-  spec.add_development_dependency 'rspec', '~> 3.7'
-  spec.add_dependency 'activesupport', '~> 5.2'
+  gemspec['dependencies'].each do |name, version|
+    spec.add_dependency(name, version)
+  end
+
+  gemspec['development_dependencies'].each do |name, version|
+    spec.add_development_dependency(name, version)
+  end
 end

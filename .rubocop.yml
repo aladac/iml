@@ -1,0 +1,15 @@
+Metrics/LineLength:
+  Max: 200
+Metrics/BlockLength:
+  Exclude: 
+    - '*.gemspec'
+    - '*.rake'
+Style/ClassAndModuleChildren:
+  Enabled: false
+Documentation:
+  Enabled: false
+Rails: 
+  Enabled: true
+AllCops:
+  Exclude:
+    - 'spec/**/*'
