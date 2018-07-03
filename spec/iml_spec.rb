@@ -32,4 +32,16 @@ RSpec.describe IML do
       expect(IML::String.new(title).tv?).to be(false)
     end
   end
+  context 'Movie' do
+    it '#movie? returns a positive result' do
+      title = 'Snowblind.2010.720p.BluRay.H264.AAC-RARBG.mp4'
+      expect(IML::String.new(title).detect.movie?).to be(true)
+    end
+  end
+  context 'TVSeries' do
+    it '#tv? returns a positive result' do
+      title = 'Walk.the.Prank.S03E09.WEBRip.x264-ION10.mkv'
+      expect(IML::String.new(title).detect.tv?).to be(true)
+    end
+  end
 end
