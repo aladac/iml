@@ -1,4 +1,4 @@
-![build status](https://travis-ci.org/aladac/iml.svg?branch=master)
+[![build status](https://travis-ci.org/aladac/iml.svg?branch=master)](https://travis-ci.org/aladac/iml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/232800c6e4d8778937b2/maintainability)](https://codeclimate.com/github/aladac/iml/maintainability)
 
 # IML
