@@ -2,7 +2,6 @@ dependencies:
   activesupport: ~> 5.2
 
 development_dependencies:
-  rubocop: ~> 0.57
   codeclimate-test-reporter: ~> 1.0
   bundler: ~> 1.16
   rake: ~> 12.3
