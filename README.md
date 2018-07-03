@@ -1,4 +1,6 @@
-# Iml
+[![Maintainability](https://api.codeclimate.com/v1/badges/232800c6e4d8778937b2/maintainability)](https://codeclimate.com/github/aladac/iml/maintainability)
+
+# IML
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/iml`. To experiment with that code, run `bin/console` for an interactive prompt.
 
