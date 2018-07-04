@@ -13,27 +13,18 @@ class IML::Patterns
   TITLE = '.*'
   YEAR = '\\d{4}'
 
-  def method_missing(method)
-    const = self.class.const_get(method.to_s.upcase)
+  def method_missing(method_name)
+    const = self.class.const_get(method_name.to_s.upcase)
     super unless const
     if const.is_a?(Array)
-      "(?<#{method}>(#{const.join('|')}))"
+      "(?<#{method_name}>(#{const.join('|')}))"
     elsif const.is_a?(String)
-      "(?<#{method}>#{const})"
+      "(?<#{method_name}>#{const})"
     end
   end
 
-  def respond_to_missing?(method)
-    true if self.class.const_defined(method.to_s.upcase)
-  end
-
-  def pattern(type)
-    const = self.class.const_get(type.to_s.upcase)
-    if const.is_a?(Array)
-      "(?<#{type}>(#{const.join('|')}))"
-    elsif const.is_a?(String)
-      "(?<#{type}>#{const})"
-    end
+  def respond_to_missing?(method_name, _include_private = false)
+    true if self.class.const_defined?(method_name.to_s.upcase)
   end
 
   def media_info

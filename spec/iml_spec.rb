@@ -44,4 +44,9 @@ RSpec.describe IML do
       expect(IML::Text.new(title).detect.tv?).to be(true)
     end
   end
+  context 'Patterns' do
+    it '#responds_to_missing? returns correclty' do
+      expect(IML::Patterns.new.respond_to?(:quality)).to be(true)
+    end
+  end
 end
