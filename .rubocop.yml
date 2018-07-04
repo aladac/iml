@@ -1,5 +1,7 @@
 Metrics/LineLength:
   Max: 200
+  Exclude:
+    - 'lib/iml.rb'
 Metrics/BlockLength:
   Exclude: 
     - '*.gemspec'

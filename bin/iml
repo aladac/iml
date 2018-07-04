@@ -1,3 +1,13 @@
 #!/usr/bin/env ruby
 
 require 'iml'
+
+input = (STDIN.tty?) ? ARGV : $stdin.readlines
+
+input.each do |path|
+  filename = File.basename path
+  media = IML::String.new(filename).detect
+  if media
+    p media
+  end
+end

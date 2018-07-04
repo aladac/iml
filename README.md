@@ -10,6 +10,8 @@ TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
+This gem requires ruby >= 2.4
+
 Add this line to your application's Gemfile:
 
 ```ruby
