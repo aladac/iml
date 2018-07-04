@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'iml/version'
 require 'active_support/inflector'
 require 'ostruct'
