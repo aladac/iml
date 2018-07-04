@@ -4,12 +4,12 @@ class IML::Patterns
   QUALITY = %w[720p 1080p].freeze
   CODEC = %w[x264 x265 h264 h265 xvid].freeze
   SOURCE = %w[hdtv bdrip dvdrip webrip bluray].freeze
-  AUDIO = %w[aac flac ac3 dts DTS-HD.MA.5.1 TrueHD.7.1.Atmos].freeze
+  AUDIO = %w[aac flac ac3 dts DTS-HD\.MA\.5\.1 TrueHD\.7\.1\.Atmos].freeze
   SEASON = '\\d{2}'
   EPISODE = '\\d{2}'
   EPISODE_TITLE = '.*?'
   EXTENSION = %w[avi mp4 mkv].freeze
-  GROUP = '.*'
+  GROUP = '\w*?'
   TITLE = '.*'
   YEAR = '\\d{4}'
 
@@ -40,7 +40,7 @@ class IML::Patterns
 
   def movie
     [
-      /#{format_pattern('^%<title>s.%<year>s.?%<quality>s?.%<source>s.%<codec>s.?%<audio>s?-?%<group>s.%<extension>s$')}/i,
+      /#{format_pattern('^%<title>s\.%<year>s\.?%<quality>s?\.%<source>s\.%<codec>s\.?%<audio>s?-?%<group>s\.%<extension>s$')}/i,
       /#{format_pattern('^%<title>s_\(%<year>s\)_\[%<quality>s,%<source>s,%<audio>s,%<codec>s\]_-_%<group>s.%<extension>s$')}/i
     ]
   end
