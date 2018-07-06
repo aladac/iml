@@ -11,8 +11,24 @@ class IML::Base < OpenStruct
   end
 
   def process
+    normalize_video_codec_name
+    normalize_audio_codec_name
     titleize
     delete_fields
+  end
+
+  def normalize_video_codec_name
+    self.codec = IML::Patterns::CODEC[codec.downcase] unless IML::Patterns::CODEC.value?(codec.downcase)
+  end
+
+  def normalize_audio_codec_name
+    return false if final_audio_format?
+    self.channels = IML::Patterns::AUDIO[audio.downcase][:channels]
+    self.audio = IML::Patterns::AUDIO[audio.downcase][:name]
+  end
+
+  def final_audio_format?
+    return true if IML::Patterns::AUDIO.values.map { |a| a[:name] }.include?(audio)
   end
 
   def delete_fields
@@ -25,7 +41,6 @@ class IML::Base < OpenStruct
     self.title = IML::Text.new(title).to_title if title.is_a?(String)
     self.episode_title = IML::Text.new(episode_title).to_title if episode_title.is_a?(String)
     self.episode_title = nil if episode_title.to_s.empty?
-    self
   end
 
   def present

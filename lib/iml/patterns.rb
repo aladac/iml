@@ -2,9 +2,36 @@
 
 class IML::Patterns
   QUALITY = %w[720p 1080p 2160p].freeze
-  CODEC = %w[x264 x265 h264 h265 xvid].freeze
-  SOURCE = %w[hdtv bdrip dvdrip webrip bluray nf\.web-dl brrip web AMZN\.WEBRip].freeze
-  AUDIO = %w[aac flac ac3 dts DTS-HD\.MA\.5\.1 TrueHD\.7\.1\.Atmos DD5\.1 DDP5\.1 AAC2.0].freeze
+  CODEC = {
+    'x264'                => 'h.264',
+    'h264'                => 'h.264',
+    'x265'                => 'h.265',
+    'h265'                => 'h.265',
+    'avc'                 => 'h.264',
+    'xvid'                => 'Xvid'
+  }.freeze
+  SOURCE = {
+    'hdtv'                => 'HDTV',
+    'bdrip'               => 'BD',
+    'dvdrip'              => 'DVD',
+    'webrip'              => 'WEB',
+    'bluray'              => 'BD',
+    'nf.web-dl' => 'Netflix',
+    'brrip'               => 'BD',
+    'web'                 => 'WEB',
+    'amzn.webrip' => 'Amazon'
+  }.freeze
+  AUDIO = {
+    'aac'                 => { name: 'AAC' },
+    'flac'                => { name: 'FLAC' },
+    'ac3'                 => { name: 'AC3' },
+    'dts'                 => { name: 'DTS' },
+    'dts-hd.ma.5.1'    => { name: 'DTS-HD Master', channels: '5.1' },
+    'truehd.7.1.atmos' => { name: 'TrueHD Atmos', channels: '7.1' },
+    'dd5.1'              => { name: 'AC3', channels: '5.1' },
+    'ddp5.1'             => { name: 'E-AC3', channels: '5.1' },
+    'aac2.0' => { name: 'AAC', channels: '2.0' }
+  }.freeze
   SEASON = '\\d{2}'
   EPISODE = '\\d{2}'
   EPISODE_TITLE = '.*?'
@@ -16,7 +43,9 @@ class IML::Patterns
   def method_missing(method_name)
     const = self.class.const_get(method_name.to_s.upcase)
     super unless const
-    if const.is_a?(Array)
+    if const.is_a?(Hash)
+      "(?<#{method_name}>(#{const.keys.join('|')}))"
+    elsif const.is_a?(Array)
       "(?<#{method_name}>(#{const.join('|')}))"
     elsif const.is_a?(String)
       "(?<#{method_name}>#{const})"

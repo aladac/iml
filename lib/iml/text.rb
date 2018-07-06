@@ -15,7 +15,7 @@ class IML::Text < String
   def match_and_return(pattern)
     match = self.match(pattern)
     if match
-      IML::Base.new(match.named_captures)
+      match.named_captures
     else
       false
     end
