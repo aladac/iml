@@ -28,6 +28,8 @@ Or install it yourself as:
 
 ## Usage
 
+### Command Line
+
 ```
 Usage: iml [options] MEDIA_FILE [MEDIA_FILE] ...
     -v, --[no-]verbose               Run verbosely
@@ -41,6 +43,15 @@ Usage: iml [options] MEDIA_FILE [MEDIA_FILE] ...
 $ iml -v Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4
 I, [2018-07-06T13:38:29.836887 #70771]  INFO -- : Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 looks like a movie
 I, [2018-07-06T13:38:29.837047 #70771]  INFO -- : Moving Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 to Some Cool Movie (2018).mp4
+```
+
+### Code
+
+```
+[1] pry(main)> title = "An.Interesting.TV.Show.S01E01.1080p.WEBRIP.h265-GROUP.mkv"
+=> "An.Interesting.TV.Show.S01E01.1080p.WEBRIP.h265-GROUP.mkv"
+[2] pry(main)> IML::Text.new(title).detect
+=> #<IML::TVSeries title="An Interesting Tv Show", season="01", episode="01", quality="1080p", source="WEBRIP", codec="h265", group="GROUP", extension="mkv">
 ```
 
 ## Development
