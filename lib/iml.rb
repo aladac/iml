@@ -8,7 +8,7 @@ require 'active_support/inflector'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/hash'
 require 'ostruct'
-require 'pry'
+require 'pry' unless ENV['BUNDLER_VERSION'].nil?
 require 'iml/version'
 require 'iml/base'
 require 'iml/patterns'
