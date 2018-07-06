@@ -12,7 +12,7 @@ class IML::Movie < IML::Base
     '%q' => :quality
   }.freeze
 
-  DEFAULT_FORMAT = '%T (%Y).%e'
+  DEFAULT_FORMAT = '%T (%Y).%f'
 
   def movie?
     true
