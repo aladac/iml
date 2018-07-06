@@ -3,7 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/232800c6e4d8778937b2/maintainability)](https://codeclimate.com/github/aladac/iml/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/232800c6e4d8778937b2/test_coverage)](https://codeclimate.com/github/aladac/iml/test_coverage)
 
-![IML](https://github.com/aladac/iml/raw/master/doc/logo.png)
+![IML](https://github.com/aladac/iml/raw/master/doc/ilm-logo.png)
 *Intricate (Media) Matching Logic*
 
 This is a media file handling library which is supposed to "guess" the intended type of media file based on specific naming patterns.
