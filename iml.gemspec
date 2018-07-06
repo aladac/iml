@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 2.4'
+  spec.metadata['yard.run'] = 'yri'
 
   gemspec['dependencies'].each do |name, version|
     spec.add_dependency(name, version)

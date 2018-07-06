@@ -5,6 +5,9 @@ class IML::Base < OpenStruct
   attr_accessor :prefix
   attr_accessor :pretend
 
+  delegate :dirname, to: :pathname
+  delegate :basename, to: :pathname
+
   def initialize(hash = nil, options = {})
     @prefix = options[:target]
     @pretend = options[:pretend]
@@ -12,6 +15,33 @@ class IML::Base < OpenStruct
     process if hash
   end
 
+  def present
+    format_string = output_format
+    self.class::PLACEHOLDERS.each do |placeholder, attribute|
+      format_string = format_string.gsub(placeholder, send(attribute).to_s)
+    end
+    format_string
+  end
+
+  def pathname
+    @prefix ? Pathname(@prefix) + Pathname(present) : Pathname(present)
+  end
+
+  def create_dir
+    FileUtils.mkdir_p dirname unless @pretend
+  end
+
+  def move(path)
+    FileUtils.mv path, pathname unless @pretend
+  end
+
+  private
+
+  def output_format
+    format_string || self.class::DEFAULT_FORMAT
+  end
+
+  # Process the IML::Base object and apply some normalizing and cleanup on the fields
   def process
     normalize_video_codec_name
     normalize_audio_codec_name
@@ -44,32 +74,4 @@ class IML::Base < OpenStruct
     self.episode_title = IML::Text.new(episode_title).to_title if episode_title.is_a?(String)
     self.episode_title = nil if episode_title.to_s.empty?
   end
-
-  def present
-    format_string = output_format
-    self.class::PLACEHOLDERS.each do |placeholder, attribute|
-      format_string = format_string.gsub(placeholder, send(attribute).to_s)
-    end
-    format_string
-  end
-
-  def output_format
-    format_string || self.class::DEFAULT_FORMAT
-  end
-
-  def pathname
-    @prefix ? Pathname(@prefix) + Pathname(present) : Pathname(present)
-  end
-
-  def create_dir
-    FileUtils.mkdir_p dirname unless @pretend
-  end
-
-  def move(path)
-    FileUtils.mv path, pathname unless @pretend
-  end
-
-  delegate :dirname, to: :pathname
-
-  delegate :basename, to: :pathname
 end
