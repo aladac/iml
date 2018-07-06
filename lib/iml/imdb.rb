@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# IMDB scraping
 class IML::IMDB
   attr_accessor :result
   attr_accessor :doc
@@ -11,6 +12,8 @@ class IML::IMDB
     @result = []
     search
   end
+
+  private
 
   def parsable_element(elem)
     elem.children[1] && (elem.css('i').first || elem.children[1].child.to_s) && elem.children[1].attr(:href) =~ /title/

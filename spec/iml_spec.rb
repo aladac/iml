@@ -40,8 +40,9 @@ RSpec.describe IML do
 
     it '#imdb should fetch metadata' do
       movie = IML::Movie.new(title: 'Lethal Weapon')
-      VCR.use_cassette("IML::Base#imdb") do
-        movie.imdb
+      VCR.use_cassette("IML::Base#imdb", record: :new_episodes) do
+        expect(movie.imdb.director).to be_a(String)
+        expect(movie.imdb.summary).to be_a(String)
       end
     end
   end
@@ -86,7 +87,7 @@ RSpec.describe IML do
 
   context 'IMDB' do
     it '#new should complete without errors' do
-      VCR.use_cassette("IML::IMDB.new") do
+      VCR.use_cassette("IML::IMDB.new", record: :new_episodes) do
         search = IML::IMDB.new('lethal weapon')
         expect(search.result.first).to be_an(IML::TVSeries)
       end
