@@ -37,11 +37,8 @@ Usage: iml [options] MEDIA_FILE [MEDIA_FILE] ...
     -O, --tv-format FORMAT           Format of the output path of TV series, default: '%T/Season %s/%T - S%SE%E.%f'
     -l, --list-formats               Format description
     -f, --force                      Use the force, override output files
-```
 
-  $ iml -v Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4
-
-```
+$ iml -v Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4
 I, [2018-07-06T13:38:29.836887 #70771]  INFO -- : Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 looks like a movie
 I, [2018-07-06T13:38:29.837047 #70771]  INFO -- : Moving Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 to Some Cool Movie (2018).mp4
 ```
