@@ -23,16 +23,19 @@ class IML::Base < OpenStruct
     self.episode_title = nil if episode_title.to_s.empty?
     self
   end
-end
 
-class IML::Movie < IML::Base
-  def movie?
-    true
+  def present(format_string = self.class::DEFAULT_FORMAT)
+    self.class::PLACEHOLDERS.each do |placeholder, attribute|
+      format_string = format_string.gsub(placeholder, send(attribute).to_s)
+    end
+    format_string
   end
-end
 
-class IML::TVSeries < IML::Base
-  def tv?
-    true
+  def pathname
+    Pathname(present)
   end
+
+  delegate :dirname, to: :pathname
+
+  delegate :basename, to: :pathname
 end

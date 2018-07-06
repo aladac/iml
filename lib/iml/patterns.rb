@@ -3,8 +3,8 @@
 class IML::Patterns
   QUALITY = %w[720p 1080p].freeze
   CODEC = %w[x264 x265 h264 h265 xvid].freeze
-  SOURCE = %w[hdtv bdrip dvdrip webrip bluray].freeze
-  AUDIO = %w[aac flac ac3 dts DTS-HD\.MA\.5\.1 TrueHD\.7\.1\.Atmos].freeze
+  SOURCE = %w[hdtv bdrip dvdrip webrip bluray nf\.web-dl brrip].freeze
+  AUDIO = %w[aac flac ac3 dts DTS-HD\.MA\.5\.1 TrueHD\.7\.1\.Atmos DD5\.1].freeze
   SEASON = '\\d{2}'
   EPISODE = '\\d{2}'
   EPISODE_TITLE = '.*?'
@@ -47,7 +47,7 @@ class IML::Patterns
 
   def tv
     [
-      /#{format_pattern('^%<title>s.S%<season>sE%<episode>s.?%<episode_title>s?.?%<quality>s?.%<source>s.%<codec>s-%<group>s.%<extension>s$')}/i
+      /#{format_pattern('^%<title>s.S%<season>sE%<episode>s.?%<episode_title>s?.?%<quality>s?.%<source>s.%<audio>s?\.?%<codec>s-%<group>s.%<extension>s$')}/i
     ]
   end
 end

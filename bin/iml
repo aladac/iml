@@ -1,13 +1,41 @@
 #!/usr/bin/env ruby
 
 require 'iml'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+end.parse!
+
+p options
+p ARGV
 
 input = (STDIN.tty?) ? ARGV : $stdin.readlines
+logger = Logger.new(STDOUT)
+
+input ||= ARGV
 
 input.each do |path|
-  filename = File.basename path
+  path = Pathname path.chomp
+  filename = path.basename.to_s
+  unless path.exist?
+    logger.warn("File #{path} does not exist, skipping")
+    next
+  end
   media = IML::Text.new(filename).detect
   if media
-    p media
+    case 
+    when media.is_a?(IML::Movie)
+      logger.info "#{path} looks like a movie"
+    when media.is_a?(IML::TVSeries)
+      logger.info "#{path} looks like a TV series"
+    end
+    FileUtils.mkdir_p media.dirname
+    FileUtils.mv path, media.pathname
   end
 end
