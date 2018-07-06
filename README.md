@@ -47,7 +47,7 @@ I, [2018-07-06T13:38:29.837047 #70771]  INFO -- : Moving Some.Cool.Movie.2018.10
 
 ### Code
 
-```
+```ruby
 [1] pry(main)> title = "An.Interesting.TV.Show.S01E01.1080p.WEBRIP.h265-GROUP.mkv"
 => "An.Interesting.TV.Show.S01E01.1080p.WEBRIP.h265-GROUP.mkv"
 [2] pry(main)> IML::Text.new(title).detect
