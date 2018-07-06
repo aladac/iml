@@ -9,22 +9,18 @@ class IML::Text < String
     super(string.to_s)
   end
 
+  # Convert IML::Text to desired title format
   def to_title
     tr('.', ' ').tr('_', ' ').titleize
   end
 
-  def match_and_return(pattern)
-    match = self.match(pattern)
-    if match
-      match.named_captures
-    else
-      false
-    end
-  end
-
+  # Determine if IML::Text matches rules for a media type
+  # @return [<IML::Movie>, <IML::TVSeries>] Media type object
   def detect
     tv? || movie? || false
   end
+
+  private
 
   def tv?
     match = match_patterns(IML::Patterns.new.tv)
@@ -42,5 +38,14 @@ class IML::Text < String
       return match if match
     end
     false
+  end
+
+  def match_and_return(pattern)
+    match = self.match(pattern)
+    if match
+      match.named_captures
+    else
+      false
+    end
   end
 end

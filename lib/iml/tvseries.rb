@@ -21,14 +21,17 @@ class IML::TVSeries < IML::Base
   # Default formatting sting
   DEFAULT_FORMAT = '%T/Season %s/%T - S%SE%E.%f'
 
+  # @return <Boolean> always true for IML::TVSeries
   def tv?
     true
   end
 
+  # @return <Integer> Season number in Integer
   def season_i
     season.to_i
   end
 
+  # @return <Integer> episode number in Integer
   def episode_i
     episode.to_i
   end
