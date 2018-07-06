@@ -20,10 +20,10 @@ begin
     opts.on('-t', '--target PATH', 'Path to move media files to, default: current directory') do |t|
       options[:target] = t
     end
-    opts.on('-mf', '--movie-format FORMAT', "Format of the output path of movies, default: '#{IML::Movie::DEFAULT_FORMAT}'") do |f|
+    opts.on('-f', '--movie-format FORMAT', "Format of the output path of movies, default: '#{IML::Movie::DEFAULT_FORMAT}'") do |f|
       options[:movie_format] = f
     end
-    opts.on('-mt', '--tv-format FORMAT', "Format of the output path of movies, default: '#{IML::TVSeries::DEFAULT_FORMAT}'") do |f|
+    opts.on('-g', '--tv-format FORMAT', "Format of the output path of movies, default: '#{IML::TVSeries::DEFAULT_FORMAT}'") do |f|
       options[:tv_format] = f
     end
     opts.on('-F', '--format', 'Format description') do |f|
@@ -69,15 +69,19 @@ input.each do |path|
   end
   media = IML::Text.new(filename).detect
   next unless media
-  dirname = options[:target] ? Pathname(options[:target]) + media.dirname : media.dirname
-  pathname = options[:target] ? Pathname(options[:target]) + media.pathname : media.pathname
   if media.is_a?(IML::Movie)
+    media.format_string = options[:movie_format] if options[:movie_format]
     logger.info "#{path} looks like a movie"
   elsif media.is_a?(IML::TVSeries)
+    media.format_string = options[:tv_format] if options[:tv_format]
     logger.info "#{path} looks like a TV series"
   end
-  logger.info "Creating #{dirname}" if options[:verbose] || options[:pretend]
-  FileUtils.mkdir_p dirname unless options[:pretend]
+  dirname = options[:target] ? Pathname(options[:target]) + media.dirname : media.dirname
+  pathname = options[:target] ? Pathname(options[:target]) + media.pathname : media.pathname
+  unless dirname.to_s == '.'
+    logger.info "Creating #{dirname}" if options[:verbose] || options[:pretend]
+    FileUtils.mkdir_p dirname unless options[:pretend]
+  end
   logger.info "Moving #{path} to #{pathname}" if options[:verbose] || options[:pretend]
   FileUtils.mv path, pathname unless options[:pretend]
 end

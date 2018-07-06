@@ -27,6 +27,6 @@ class IML::TVSeries < IML::Base
   end
 
   def episode_i
-    episdoe.to_i
+    episode.to_i
   end
 end
