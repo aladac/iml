@@ -7,7 +7,7 @@ class IML::Base < OpenStruct
     @prefix = options[:target]
     @pretend = options[:pretend]
     super(hash)
-    process
+    process if hash
   end
 
   def process
@@ -28,7 +28,7 @@ class IML::Base < OpenStruct
   end
 
   def final_audio_format?
-    return true if IML::Patterns::AUDIO.values.map { |a| a[:name] }.include?(audio)
+    return true if IML::Patterns::AUDIO.values.map { |a| a[:name] }.include?(audio) || !audio
   end
 
   def delete_fields
