@@ -29,7 +29,7 @@ begin
     opts.on('-F', '--format', 'Format description') do |f|
       options[:format] = f
     end
-    puts opts if opts.default_argv.empty?
+    puts opts if opts.default_argv.empty? && STDIN.tty?
   end.parse!
 rescue OptionParser::InvalidOption => e
   logger.error e.message
@@ -60,19 +60,21 @@ input = STDIN.tty? ? ARGV : $stdin.readlines
 
 input ||= ARGV
 
-input.each do |path|
-  path = Pathname path.chomp
+input.map { |p| Pathname(p.chomp) }.each do |path|
   filename = path.basename.to_s
   unless path.exist?
     logger.warn("File #{path} does not exist, skipping")
     next
   end
   media = IML::Text.new(filename).detect
-  next unless media
-  if media.is_a?(IML::Movie)
+  unless media
+    logger.warn "#{path} doesn't look like a media file" if options[:verbose] || options[:pretend]
+    next
+  end
+  if media.movie?
     media.format_string = options[:movie_format] if options[:movie_format]
     logger.info "#{path} looks like a movie"
-  elsif media.is_a?(IML::TVSeries)
+  elsif media.tv?
     media.format_string = options[:tv_format] if options[:tv_format]
     logger.info "#{path} looks like a TV series"
   end
