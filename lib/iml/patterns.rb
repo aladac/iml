@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Contains methods to build the regexp to match against the input filenames
 class IML::Patterns
   def config
     IML::Hash.new YAML.load_file('patterns.yml')

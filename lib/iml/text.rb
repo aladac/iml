@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Parsing and mangling of text metadata
 class IML::Text < String
   attr_accessor :options
 

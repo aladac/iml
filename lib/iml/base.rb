@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+# Base media file class
 class IML::Base < OpenStruct
-  attr_accessor :format_string
-  attr_accessor :prefix
-  attr_accessor :pretend
+  attr_accessor :format_string # @return <String> Allows retrieving and setting of the format string for the output name
+  attr_accessor :prefix # @return <String> Allows for setting and getting the output path sans the output base filename
+  attr_accessor :pretend # @return <Boolean> Allows for setting and getting dry run setting
 
-  delegate :dirname, to: :pathname
-  delegate :basename, to: :pathname
+  delegate :dirname, to: :pathname # @return <Pathname> returns the output path sans the output base filename
+  delegate :basename, to: :pathname # @return <Pathname> returns the output basename
 
   def initialize(hash = nil, options = {})
     @prefix = options[:target]
@@ -15,6 +16,7 @@ class IML::Base < OpenStruct
     process if hash
   end
 
+  # @return [String] formated output filename
   def present
     format_string = output_format
     self.class::PLACEHOLDERS.each do |placeholder, attribute|
@@ -23,16 +25,28 @@ class IML::Base < OpenStruct
     format_string
   end
 
+  # @return [Pathname] output full pathname of the media file
   def pathname
     @prefix ? Pathname(@prefix) + Pathname(present) : Pathname(present)
   end
 
+  # Creates the output directory if needed
+  # @return [Array<String>] array containing the path of the created output directory
+  # @example
+  #   movie = IML::Text.new('Cool.Movie.2018.720p.BluRay.H264.AAC2.0-GROUP.mp4').detect
+  #   # => <IML::Movie title="Cool Movie", year="2018", quality="720p", source="BluRay" ..>
+  #   movie.create_dir
+  #   # => ["."]
   def create_dir
     FileUtils.mkdir_p dirname unless @pretend
   end
 
+  # Moves the media file to the output directory
+  # @return <Integer> 0 on success, 1 on failure
   def move(path)
     FileUtils.mv path, pathname unless @pretend
+  rescue Errno::ENOENT
+    1
   end
 
   private

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Movie media file type class
 class IML::Movie < IML::Base
+  # Formatting placeholders for Movies
   PLACEHOLDERS = {
     '%T' => :title,
     '%Y' => :year,
@@ -12,6 +14,7 @@ class IML::Movie < IML::Base
     '%q' => :quality
   }.freeze
 
+  # Default formatting string
   DEFAULT_FORMAT = '%T (%Y).%f'
 
   def movie?

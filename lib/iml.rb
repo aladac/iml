@@ -14,3 +14,7 @@ require 'iml/text'
 require 'iml/movie'
 require 'iml/tvseries'
 require 'iml/hash'
+
+# IML Namespace
+module IML
+end
