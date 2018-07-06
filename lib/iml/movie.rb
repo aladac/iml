@@ -4,7 +4,12 @@ class IML::Movie < IML::Base
   PLACEHOLDERS = {
     '%T' => :title,
     '%Y' => :year,
-    '%e' => :extension
+    '%f' => :extension,
+    '%v' => :codec,
+    '%a' => :audio,
+    '%g' => :group,
+    '%z' => :source,
+    '%q' => :quality
   }.freeze
 
   DEFAULT_FORMAT = '%T (%Y).%e'

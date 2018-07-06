@@ -9,7 +9,7 @@ logger = Logger.new(STDOUT)
 
 begin
   OptionParser.new do |opts|
-    opts.banner = "Usage: #{File.basename $PROGRAM_NAME} [options]"
+    opts.banner = "Usage: #{File.basename $PROGRAM_NAME} [options] MEDIA_FILE [MEDIA_FILE] ..."
 
     opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
       options[:verbose] = v
@@ -20,10 +20,40 @@ begin
     opts.on('-t', '--target PATH', 'Path to move media files to, default: current directory') do |t|
       options[:target] = t
     end
+    opts.on('-mf', '--movie-format FORMAT', "Format of the output path of movies, default: '#{IML::Movie::DEFAULT_FORMAT}'") do |f|
+      options[:movie_format] = f
+    end
+    opts.on('-mt', '--tv-format FORMAT', "Format of the output path of movies, default: '#{IML::TVSeries::DEFAULT_FORMAT}'") do |f|
+      options[:tv_format] = f
+    end
+    opts.on('-F', '--format', 'Format description') do |f|
+      options[:format] = f
+    end
     puts opts if opts.default_argv.empty?
   end.parse!
 rescue OptionParser::InvalidOption => e
   logger.error e.message
+end
+
+if options[:format]
+  puts <<~FORMAT
+    Formatting description:
+    %T - title
+    %t - episode title
+    %Y - year
+    %S - season number string as found in the input path
+    %s - season number integer
+    %E - episode number string as found in the input path
+    %e - episode number integer
+    %g - group name
+    %a - audio codec
+    %v - video codec
+    %f - file format / extension
+    %z - source
+    %q - quality
+
+  FORMAT
+  exit
 end
 
 input = STDIN.tty? ? ARGV : $stdin.readlines

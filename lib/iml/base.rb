@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class IML::Base < OpenStruct
+  attr_accessor :format_string
+
   def initialize(hash = nil)
     super
     process
@@ -24,11 +26,16 @@ class IML::Base < OpenStruct
     self
   end
 
-  def present(format_string = self.class::DEFAULT_FORMAT)
+  def present
+    format_string = output_format
     self.class::PLACEHOLDERS.each do |placeholder, attribute|
       format_string = format_string.gsub(placeholder, send(attribute).to_s)
     end
     format_string
+  end
+
+  def output_format
+    format_string || self.class::DEFAULT_FORMAT
   end
 
   def pathname

@@ -7,7 +7,13 @@ class IML::TVSeries < IML::Base
     '%S' => :season,
     '%f' => :extension,
     '%e' => :episode_i,
-    '%s' => :season_i
+    '%s' => :season_i,
+    '%t' => :episode_title,
+    '%a' => :audio,
+    '%v' => :codec,
+    '%q' => :quality,
+    '%g' => :group,
+    '%z' => :source
   }.freeze
 
   DEFAULT_FORMAT = '%T/Season %s/%T - S%SE%E.%f'
