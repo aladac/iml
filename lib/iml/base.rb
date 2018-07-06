@@ -2,12 +2,15 @@
 
 # Base media file class
 class IML::Base < OpenStruct
-  attr_accessor :format_string # @return <String> Allows retrieving and setting of the format string for the output name
-  attr_accessor :prefix # @return <String> Allows for setting and getting the output path sans the output base filename
-  attr_accessor :pretend # @return <Boolean> Allows for setting and getting dry run setting
+  # @return <String> Allows retrieving and setting of the format string for the output name
+  attr_accessor :format_string
+  # @return <String> Allows for setting and getting the output path sans the output base filename
+  attr_accessor :prefix
+  # @return <Boolean> Allows for setting and getting dry run setting
+  attr_accessor :pretend
 
-  delegate :dirname, to: :pathname # @return <Pathname> returns the output path sans the output base filename
-  delegate :basename, to: :pathname # @return <Pathname> returns the output basename
+  delegate :dirname, to: :pathname # @return <Pathname> output path sans the output base filename
+  delegate :basename, to: :pathname # @return <Pathname> output base filename
 
   def initialize(hash = nil, options = {})
     @prefix = options[:target]
@@ -25,7 +28,7 @@ class IML::Base < OpenStruct
     format_string
   end
 
-  # @return [Pathname] output full pathname of the media file
+  # @return [Pathname] full output path of the media file
   def pathname
     @prefix ? Pathname(@prefix) + Pathname(present) : Pathname(present)
   end

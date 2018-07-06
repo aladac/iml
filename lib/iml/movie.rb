@@ -17,6 +17,7 @@ class IML::Movie < IML::Base
   # Default formatting string
   DEFAULT_FORMAT = '%T (%Y).%f'
 
+  # @return <Boolean> always true for IML::Movie objects
   def movie?
     true
   end
