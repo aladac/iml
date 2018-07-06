@@ -22,7 +22,7 @@ class IML::Patterns
   end
 
   def respond_to_missing?(method_name, _include_private = false)
-    true if self.class.const_defined?(method_name.to_s.upcase)
+    config.key?(method_name) || false
   end
 
   def media_info

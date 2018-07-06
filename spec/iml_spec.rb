@@ -82,4 +82,10 @@ RSpec.describe IML do
       expect(IML::Patterns.new.respond_to?(:quality)).to be(true)
     end
   end
+
+  context 'Hash' do
+    it '#responds_to_missing? returns correclty' do
+      expect(IML::Hash.new.respond_to?(:some_method)).to be(false)
+    end
+  end
 end
