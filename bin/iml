@@ -23,7 +23,7 @@ begin
     opts.on('-o', '--movie-format FORMAT', "Format of the output path of movies, default: '#{IML::Movie::DEFAULT_FORMAT}'") do |f|
       options[:movie_format] = f
     end
-    opts.on('-O', '--tv-format FORMAT', "Format of the output path of movies, default: '#{IML::TVSeries::DEFAULT_FORMAT}'") do |f|
+    opts.on('-O', '--tv-format FORMAT', "Format of the output path of TV series, default: '#{IML::TVSeries::DEFAULT_FORMAT}'") do |f|
       options[:tv_format] = f
     end
     opts.on('-l', '--list-formats', 'Format description') do |f|
