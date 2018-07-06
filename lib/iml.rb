@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'yaml'
 require 'logger'
 require 'fileutils'
 require 'active_support/inflector'
