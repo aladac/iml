@@ -35,6 +35,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 2.4'
+
   gemspec['dependencies'].each do |name, version|
     spec.add_dependency(name, version)
   end
