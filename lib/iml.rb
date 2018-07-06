@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'yaml'
+require 'tqdm'
 require 'logger'
 require 'fileutils'
 require 'active_support/inflector'

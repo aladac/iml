@@ -1,5 +1,6 @@
 dependencies:
   activesupport: ~> 5.2
+  tqdm: ~> 0.3
 
 development_dependencies:
   codeclimate-test-reporter: ~> 1.0
@@ -8,3 +9,4 @@ development_dependencies:
   rspec: ~> 3.7
   pry: ~> 0.11
   simplecov: ~> 0.16
+  yard: ~> 0.9

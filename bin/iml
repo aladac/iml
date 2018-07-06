@@ -74,7 +74,7 @@ def file_operations(path, media, options)
   media.move(path)
 end
 
-input.map { |p| Pathname(p.chomp) }.each do |path|
+input.map { |p| Pathname(p.chomp) }.tqdm(desc: 'Processing input', leave: true).each do |path|
   filename = path.basename.to_s
   unless path.exist?
     @logger.warn("File #{path} does not exist, skipping")
