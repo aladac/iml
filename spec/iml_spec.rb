@@ -76,4 +76,13 @@ RSpec.describe IML do
       expect(IML::Hash.new.respond_to?(:some_method)).to be(false)
     end
   end
+
+  context 'IMDB' do
+    it '#new should complete without errors' do
+      VCR.use_cassette("imdb") do
+        search = IML::IMDB.new('lethal weapon')
+        expect(search.result.first).to be_an(IML::TVSeries)
+      end
+    end
+  end
 end

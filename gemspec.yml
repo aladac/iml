@@ -11,3 +11,5 @@ development_dependencies:
   pry: ~> 0.11
   simplecov: ~> 0.16
   yard: ~> 0.9
+  vcr: ~> 4.0
+  webmock: ~> 3.4
