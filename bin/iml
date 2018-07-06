@@ -4,6 +4,8 @@
 require 'iml'
 require 'optparse'
 
+PATTERNS = Pathname(__dir__) + '..' + 'patterns.yml'
+
 options = {}
 @logger = Logger.new(STDOUT)
 
