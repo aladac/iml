@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class IML::Text < String
+  attr_accessor :options
+
+  def initialize(string = nil, options = {})
+    @options = options
+    super(string.to_s)
+  end
+
   def to_title
     tr('.', ' ').tr('_', ' ').titleize
   end
@@ -20,12 +27,12 @@ class IML::Text < String
 
   def tv?
     match = match_patterns(IML::Patterns.new.tv)
-    match ? IML::TVSeries.new(match) : false
+    match ? IML::TVSeries.new(match, options) : false
   end
 
   def movie?
     match = match_patterns(IML::Patterns.new.movie)
-    match ? IML::Movie.new(match) : false
+    match ? IML::Movie.new(match, options) : false
   end
 
   def match_patterns(patterns)

@@ -3,8 +3,10 @@
 class IML::Base < OpenStruct
   attr_accessor :format_string
 
-  def initialize(hash = nil)
-    super
+  def initialize(hash = nil, options = {})
+    @prefix = options[:target]
+    @pretend = options[:pretend]
+    super(hash)
     process
   end
 
@@ -38,16 +40,16 @@ class IML::Base < OpenStruct
     format_string || self.class::DEFAULT_FORMAT
   end
 
-  def pathname(prefix = nil)
-    prefix ? Pathname(prefix) + Pathname(present) : Pathname(present)
+  def pathname
+    @prefix ? Pathname(@prefix) + Pathname(present) : Pathname(present)
   end
 
-  def create_dir(options = {})
-    FileUtils.mkdir_p dirname(options[:target]) unless options[:pretend]
+  def create_dir
+    FileUtils.mkdir_p dirname unless @pretend
   end
 
-  def move(path, options = {})
-    FileUtils.mv path, pathname(options[:target]) unless options[:pretend]
+  def move(path)
+    FileUtils.mv path, pathname unless @pretend
   end
 
   delegate :dirname, to: :pathname
