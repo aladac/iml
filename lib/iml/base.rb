@@ -2,6 +2,8 @@
 
 class IML::Base < OpenStruct
   attr_accessor :format_string
+  attr_accessor :prefix
+  attr_accessor :pretend
 
   def initialize(hash = nil, options = {})
     @prefix = options[:target]
