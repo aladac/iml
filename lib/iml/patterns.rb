@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class IML::Patterns
-  QUALITY = %w[720p 1080p].freeze
+  QUALITY = %w[720p 1080p 2160p].freeze
   CODEC = %w[x264 x265 h264 h265 xvid].freeze
-  SOURCE = %w[hdtv bdrip dvdrip webrip bluray nf\.web-dl brrip].freeze
-  AUDIO = %w[aac flac ac3 dts DTS-HD\.MA\.5\.1 TrueHD\.7\.1\.Atmos DD5\.1].freeze
+  SOURCE = %w[hdtv bdrip dvdrip webrip bluray nf\.web-dl brrip web AMZN\.WEBRip].freeze
+  AUDIO = %w[aac flac ac3 dts DTS-HD\.MA\.5\.1 TrueHD\.7\.1\.Atmos DD5\.1 DDP5\.1 AAC2.0].freeze
   SEASON = '\\d{2}'
   EPISODE = '\\d{2}'
   EPISODE_TITLE = '.*?'
   EXTENSION = %w[avi mp4 mkv].freeze
-  GROUP = '\w*?'
+  GROUP = '[\[\]\w]*?'
   TITLE = '.*'
   YEAR = '\\d{4}'
 
