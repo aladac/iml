@@ -38,8 +38,16 @@ class IML::Base < OpenStruct
     format_string || self.class::DEFAULT_FORMAT
   end
 
-  def pathname
-    Pathname(present)
+  def pathname(prefix = nil)
+    prefix ? Pathname(prefix) + Pathname(present) : Pathname(present)
+  end
+
+  def create_dir(options = {})
+    FileUtils.mkdir_p dirname(options[:target]) unless options[:pretend]
+  end
+
+  def move(path, options = {})
+    FileUtils.mv path, pathname(options[:target]) unless options[:pretend]
   end
 
   delegate :dirname, to: :pathname

@@ -5,7 +5,7 @@ require 'iml'
 require 'optparse'
 
 options = {}
-logger = Logger.new(STDOUT)
+@logger = Logger.new(STDOUT)
 
 begin
   OptionParser.new do |opts|
@@ -20,19 +20,22 @@ begin
     opts.on('-t', '--target PATH', 'Path to move media files to, default: current directory') do |t|
       options[:target] = t
     end
-    opts.on('-f', '--movie-format FORMAT', "Format of the output path of movies, default: '#{IML::Movie::DEFAULT_FORMAT}'") do |f|
+    opts.on('-o', '--movie-format FORMAT', "Format of the output path of movies, default: '#{IML::Movie::DEFAULT_FORMAT}'") do |f|
       options[:movie_format] = f
     end
-    opts.on('-g', '--tv-format FORMAT', "Format of the output path of movies, default: '#{IML::TVSeries::DEFAULT_FORMAT}'") do |f|
+    opts.on('-O', '--tv-format FORMAT', "Format of the output path of movies, default: '#{IML::TVSeries::DEFAULT_FORMAT}'") do |f|
       options[:tv_format] = f
     end
-    opts.on('-F', '--format', 'Format description') do |f|
+    opts.on('-l', '--list-formats', 'Format description') do |f|
       options[:format] = f
+    end
+    opts.on('-f', '--force', 'Use the force, override output files') do |f|
+      options[:force] = f
     end
     puts opts if opts.default_argv.empty? && STDIN.tty?
   end.parse!
 rescue OptionParser::InvalidOption => e
-  logger.error e.message
+  @logger.error e.message
 end
 
 if options[:format]
@@ -60,30 +63,34 @@ input = STDIN.tty? ? ARGV : $stdin.readlines
 
 input ||= ARGV
 
+def file_operations(path, media, options)
+  pathname = media.pathname(options[:target])
+  dirname = pathname.dirname
+  unless dirname.to_s == '.'
+    @logger.info "Creating #{dirname}" if options[:verbose] || options[:pretend]
+    media.create_dir(options)
+  end
+  @logger.info "Moving #{path} to #{pathname}" if options[:verbose] || options[:pretend]
+  media.move(path, options)
+end
+
 input.map { |p| Pathname(p.chomp) }.each do |path|
   filename = path.basename.to_s
   unless path.exist?
-    logger.warn("File #{path} does not exist, skipping")
+    @logger.warn("File #{path} does not exist, skipping")
     next
   end
   media = IML::Text.new(filename).detect
   unless media
-    logger.warn "#{path} doesn't look like a media file" if options[:verbose] || options[:pretend]
+    @logger.warn "#{path} doesn't look like a media file" if options[:verbose] || options[:pretend]
     next
   end
   if media.movie?
     media.format_string = options[:movie_format] if options[:movie_format]
-    logger.info "#{path} looks like a movie"
+    @logger.info "#{path} looks like a movie"
   elsif media.tv?
     media.format_string = options[:tv_format] if options[:tv_format]
-    logger.info "#{path} looks like a TV series"
+    @logger.info "#{path} looks like a TV series"
   end
-  dirname = options[:target] ? Pathname(options[:target]) + media.dirname : media.dirname
-  pathname = options[:target] ? Pathname(options[:target]) + media.pathname : media.pathname
-  unless dirname.to_s == '.'
-    logger.info "Creating #{dirname}" if options[:verbose] || options[:pretend]
-    FileUtils.mkdir_p dirname unless options[:pretend]
-  end
-  logger.info "Moving #{path} to #{pathname}" if options[:verbose] || options[:pretend]
-  FileUtils.mv path, pathname unless options[:pretend]
+  file_operations(path, media, options)
 end
