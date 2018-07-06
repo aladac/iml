@@ -4,7 +4,7 @@
 class IML::Patterns
   # @return [IML::Hash] pattern config
   def config
-    IML::Hash.new ::YAML.load_file(PATTERNS)
+    IML::Hash.new ::YAML.load_file(::PATTERNS)
   end
 
   # @return [IML::Hash] pattern config singleton version
