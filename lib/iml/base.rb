@@ -20,17 +20,17 @@ class IML::Base < OpenStruct
   end
 
   def normalize_video_codec_name
-    self.codec = IML::Patterns::CODEC[codec.downcase] unless IML::Patterns::CODEC.value?(codec.downcase)
+    self.codec = IML::Patterns.config.codec[codec.downcase] unless IML::Patterns.config.codec.value?(codec.downcase)
   end
 
   def normalize_audio_codec_name
     return false if final_audio_format?
-    self.channels = IML::Patterns::AUDIO[audio.downcase][:channels]
-    self.audio = IML::Patterns::AUDIO[audio.downcase][:name]
+    self.channels = IML::Patterns.config.audio[audio.downcase][:channels]
+    self.audio = IML::Patterns.config.audio[audio.downcase][:name]
   end
 
   def final_audio_format?
-    return true if IML::Patterns::AUDIO.values.map { |a| a[:name] }.include?(audio) || !audio
+    return true if IML::Patterns.config.audio.values.map { |a| a[:name] }.include?(audio) || !audio
   end
 
   def delete_fields

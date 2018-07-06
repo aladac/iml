@@ -1,54 +1,23 @@
 # frozen_string_literal: true
 
 class IML::Patterns
-  QUALITY = %w[720p 1080p 2160p].freeze
-  CODEC = {
-    'x264'                => 'h.264',
-    'h264'                => 'h.264',
-    'x265'                => 'h.265',
-    'h265'                => 'h.265',
-    'avc'                 => 'h.264',
-    'xvid'                => 'Xvid'
-  }.freeze
-  SOURCE = {
-    'hdtv'                => 'HDTV',
-    'bdrip'               => 'BD',
-    'dvdrip'              => 'DVD',
-    'webrip'              => 'WEB',
-    'bluray'              => 'BD',
-    'nf.web-dl' => 'Netflix',
-    'brrip'               => 'BD',
-    'web'                 => 'WEB',
-    'amzn.webrip' => 'Amazon'
-  }.freeze
-  AUDIO = {
-    'aac'                 => { name: 'AAC' },
-    'flac'                => { name: 'FLAC' },
-    'ac3'                 => { name: 'AC3' },
-    'dts'                 => { name: 'DTS' },
-    'dts-hd.ma.5.1'    => { name: 'DTS-HD Master', channels: '5.1' },
-    'truehd.7.1.atmos' => { name: 'TrueHD Atmos', channels: '7.1' },
-    'dd5.1'              => { name: 'AC3', channels: '5.1' },
-    'ddp5.1'             => { name: 'E-AC3', channels: '5.1' },
-    'aac2.0' => { name: 'AAC', channels: '2.0' }
-  }.freeze
-  SEASON = '\\d{2}'
-  EPISODE = '\\d{2}'
-  EPISODE_TITLE = '.*?'
-  EXTENSION = %w[avi mp4 mkv].freeze
-  GROUP = '[\[\]\w]*?'
-  TITLE = '.*'
-  YEAR = '\\d{4}'
+  def config
+    IML::Hash.new YAML.load_file('patterns.yml')
+  end
+
+  def self.config
+    new.config
+  end
 
   def method_missing(method_name)
-    const = self.class.const_get(method_name.to_s.upcase)
-    super unless const
-    if const.is_a?(Hash)
-      "(?<#{method_name}>(#{const.keys.join('|')}))"
-    elsif const.is_a?(Array)
-      "(?<#{method_name}>(#{const.join('|')}))"
-    elsif const.is_a?(String)
-      "(?<#{method_name}>#{const})"
+    m = config[method_name]
+    super unless m
+    if m.is_a?(Hash)
+      "(?<#{method_name}>(#{m.keys.join('|')}))"
+    elsif m.is_a?(Array)
+      "(?<#{method_name}>(#{m.join('|')}))"
+    elsif m.is_a?(String)
+      "(?<#{method_name}>#{m})"
     end
   end
 

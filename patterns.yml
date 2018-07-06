@@ -1,0 +1,56 @@
+---
+quality:
+- 720p
+- 1080p
+- 2160p
+codec:
+  x264: h.264
+  h264: h.264
+  x265: h.265
+  h265: h.265
+  avc: h.264
+  xvid: Xvid
+source:
+  hdtv: HDTV
+  bdrip: BD
+  dvdrip: DVD
+  webrip: WEB
+  bluray: BD
+  nf.web-dl: Netflix
+  brrip: BD
+  web: WEB
+  amzn.webrip: Amazon
+audio:
+  aac:
+    name: AAC
+  flac:
+    name: FLAC
+  ac3:
+    name: AC3
+  dts:
+    name: DTS
+  dts-hd.ma.5.1:
+    name: DTS-HD Master
+    channels: '5.1'
+  truehd.7.1.atmos:
+    name: TrueHD Atmos
+    channels: '7.1'
+  dd5.1:
+    name: AC3
+    channels: '5.1'
+  ddp5.1:
+    name: E-AC3
+    channels: '5.1'
+  aac2.0:
+    name: AAC
+    channels: '2.0'
+season: "\\d{2}"
+episode: "\\d{2}"
+episode_title: ".*?"
+extension:
+- avi
+- mp4
+- mkv
+group: "[\\[\\]\\w]*?"
+title: ".*"
+year: "\\d{4}"
