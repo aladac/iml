@@ -4,9 +4,9 @@
 
 # IML
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/iml`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This is a media file handling library which is supposed to "guess" the intended type of media file based on specific naming patterns.
+Its main purpose is to serve as runtime for renaming media files according to specified patterns.
+The gem includes an executable `iml` through which rename operations are possible.
 
 ## Installation
 
@@ -28,7 +28,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+Usage: iml [options] MEDIA_FILE [MEDIA_FILE] ...
+    -v, --[no-]verbose               Run verbosely
+    -p, --[no-]pretend               Dry run, do not move any files
+    -t, --target PATH                Path to move media files to, default: current directory
+    -o, --movie-format FORMAT        Format of the output path of movies, default: '%T (%Y).%f'
+    -O, --tv-format FORMAT           Format of the output path of TV series, default: '%T/Season %s/%T - S%SE%E.%f'
+    -l, --list-formats               Format description
+    -f, --force                      Use the force, override output files
+```
+
+  $ iml -v Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4
+
+```
+I, [2018-07-06T13:38:29.836887 #70771]  INFO -- : Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 looks like a movie
+I, [2018-07-06T13:38:29.837047 #70771]  INFO -- : Moving Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 to Some Cool Movie (2018).mp4
+```
 
 ## Development
 
