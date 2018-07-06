@@ -4,7 +4,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/232800c6e4d8778937b2/test_coverage)](https://codeclimate.com/github/aladac/iml/test_coverage)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](https://www.rubydoc.info/github/aladac/iml/master)
 
-[![IML](https://github.com/aladac/iml/raw/master/doc/ilm-logo.png)](https://rubygems.org/gems/iml)
+[![IML](https://github.com/aladac/iml/raw/master/doc/iml-logo.png)](https://rubygems.org/gems/iml)
 
 *Intricate (Media) Matching Logic*
 
