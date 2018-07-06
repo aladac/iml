@@ -31,29 +31,17 @@ RSpec.describe IML do
       movie.pretend = true
       expect { movie.move('somepath') }.not_to raise_error
     end
+
+    it '#move should fail when FileUtils.mv raises Errno::ENOENT' do
+      movie.pretend = false
+      allow(FileUtils).to receive(:mv).and_raise(Errno::ENOENT)
+      expect(movie.move('somepath')).to eq(1)
+    end
   end
 
   context 'Text' do
     it '#new initializes a new object' do
       expect(IML::Text.new).to be_an(IML::Text)
-    end
-
-    it '#movie? returns a positive result' do
-      expect(movie_title.movie?).to be_an(IML::Movie)
-    end
-
-    it '#movie? returns a negative result' do
-      title = 'foobar foobar'
-      expect(IML::Text.new(title).movie?).to be(false)
-    end
-
-    it '#tv? returns a positive result' do
-      expect(tvseries_title.tv?).to be_an(IML::TVSeries)
-    end
-
-    it '#tv? returns a negative result' do
-      title = 'foobar foobar'
-      expect(IML::Text.new(title).tv?).to be(false)
     end
   end
 
