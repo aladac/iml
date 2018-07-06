@@ -60,8 +60,8 @@ class IML::Base < OpenStruct
 
   # Process the IML::Base object and apply some normalizing and cleanup on the fields
   def process
-    normalize_video_codec_name
-    normalize_audio_codec_name
+    normalize_video_codec_name if codec
+    normalize_audio_codec_name if audio
     titleize
     delete_fields
   end

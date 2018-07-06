@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'nokogiri'
+require 'open-uri'
 require 'yaml'
 require 'tqdm'
 require 'logger'
@@ -17,6 +19,7 @@ require 'iml/text'
 require 'iml/movie'
 require 'iml/tvseries'
 require 'iml/hash'
+require 'iml/imdb'
 
 # IML Namespace
 module IML

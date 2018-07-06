@@ -1,6 +1,7 @@
 dependencies:
   activesupport: ~> 5.2
   tqdm: ~> 0.3
+  nokogiri: ~> 1.8
 
 development_dependencies:
   codeclimate-test-reporter: ~> 1.0
