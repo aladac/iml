@@ -4,7 +4,7 @@
 class IML::Patterns
   # @return [IML::Hash] pattern config
   def config
-    IML::Hash.new ::YAML.load_file(::PATTERNS)
+    IML::Hash.new ::YAML.load_file(pattern_file)
   end
 
   # @return [IML::Hash] pattern config singleton version
@@ -46,6 +46,10 @@ class IML::Patterns
   end
 
   private
+
+  def pattern_file
+    Pathname(__dir__) + '..' + '..' + 'patterns.yml'
+  end
 
   def media_info
     {
