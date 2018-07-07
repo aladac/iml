@@ -19,6 +19,11 @@ require 'iml/movie'
 require 'iml/tvseries'
 require 'iml/hash'
 
+begin
+  require 'iml-imdb'
+rescue LoadError
+end
+
 # IML Namespace
 module IML
 end
