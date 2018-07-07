@@ -22,6 +22,7 @@ require 'iml/hash'
 begin
   require 'iml-imdb'
 rescue LoadError
+  puts "IMDB support disabled, to enable add 'iml-imdb' to Gemfile or install manually"
 end
 
 # IML Namespace

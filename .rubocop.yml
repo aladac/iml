@@ -10,8 +10,6 @@ Style/ClassAndModuleChildren:
   Enabled: false
 Documentation:
   Enabled: false
-Rails: 
-  Enabled: true
 AllCops:
   Exclude:
     - 'spec/**/*'
