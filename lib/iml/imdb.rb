@@ -5,6 +5,8 @@ class IML::IMDB
   attr_accessor :result
   attr_accessor :doc
 
+  # Start a IMDB query
+  # @return [Array<Media::Movie, Media::TVSeries>] Array of Media objects
   def initialize(query)
     query = CGI.escape(query)
     html = open("https://www.imdb.com/find?q=#{query}&ref_=nv_sr_fn", 'X-Forwarded-For' => '35.228.112.200').read
