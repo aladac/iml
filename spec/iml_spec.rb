@@ -37,14 +37,6 @@ RSpec.describe IML do
       allow(FileUtils).to receive(:mv).and_raise(Errno::ENOENT)
       expect(movie.move('somepath')).to eq(1)
     end
-
-    it '#imdb should fetch metadata' do
-      movie = IML::Movie.new(title: 'Lethal Weapon')
-      VCR.use_cassette("IML::Base#imdb", record: :new_episodes) do
-        expect(movie.imdb.director).to be_a(String)
-        expect(movie.imdb.summary).to be_a(String)
-      end
-    end
   end
 
   context 'Text' do
@@ -82,15 +74,6 @@ RSpec.describe IML do
   context 'Hash' do
     it '#responds_to_missing? returns correclty' do
       expect(IML::Hash.new.respond_to?(:some_method)).to be(false)
-    end
-  end
-
-  context 'IMDB' do
-    it '#new should complete without errors' do
-      VCR.use_cassette("IML::IMDB.new", record: :new_episodes) do
-        search = IML::IMDB.new('lethal weapon')
-        expect(search.result.first).to be_an(IML::TVSeries)
-      end
     end
   end
 end
