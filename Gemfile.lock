@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iml (0.1.5)
+    iml (0.1.6)
       activesupport (~> 5.2)
       tqdm (~> 0.3)
 
