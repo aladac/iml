@@ -1,8 +1,5 @@
 [![Gem Version](https://img.shields.io/gem/v/iml.svg)](https://rubygems.org/gems/iml)
-[![build status](https://travis-ci.org/aladac/iml.svg?branch=master)](https://travis-ci.org/aladac/iml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/232800c6e4d8778937b2/maintainability)](https://codeclimate.com/github/aladac/iml/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/232800c6e4d8778937b2/test_coverage)](https://codeclimate.com/github/aladac/iml/test_coverage)
-[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](https://www.rubydoc.info/github/aladac/iml/master)
 
 [![IML](https://github.com/aladac/iml/raw/master/doc/iml-logo.png)](https://rubygems.org/gems/iml)
 
