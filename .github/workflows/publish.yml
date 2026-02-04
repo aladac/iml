@@ -33,4 +33,4 @@ jobs:
       - name: Publish to GitHub Packages
         env:
           GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
-        run: gem push --host https://rubygems.pkg.github.com/${{ github.repository_owner }} *.gem
+        run: gem push --host https://rubygems.pkg.github.com/${{ github.repository_owner }} pkg/*.gem
