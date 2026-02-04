@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: Publish Gem
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   publish:
@@ -23,6 +24,9 @@ jobs:
 
       - name: Build gem
         run: gem build iml.gemspec
+
+      - name: Publish to RubyGems
+        uses: rubygems/release-gem@v1
 
       - name: Publish to GitHub Packages
         env:
