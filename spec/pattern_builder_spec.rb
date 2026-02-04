@@ -6,8 +6,8 @@ RSpec.describe IML::PatternBuilder, :verified do
       expect(builder.movie_patterns).to all(be_a(Regexp))
     end
 
-    it "returns 2 patterns" do
-      expect(builder.movie_patterns.size).to eq(2)
+    it "returns 5 patterns" do
+      expect(builder.movie_patterns.size).to eq(5)
     end
 
     it "patterns are case-insensitive" do
@@ -37,6 +37,44 @@ RSpec.describe IML::PatternBuilder, :verified do
       match = builder.movie_patterns.lazy.filter_map { |p| filename.match(p) }.first
       expect(match).not_to be_nil
       expect(match[:year]).to eq("2018")
+    end
+
+    it "matches audio-before-codec ordering" do
+      filename = "The.Plague.2025.REPACK.2160p.AMZN.WEB-DL.DDP5.1.H.265-BYNDR.mkv"
+      match = builder.movie_patterns.lazy.filter_map { |p| filename.match(p) }.first
+      expect(match).not_to be_nil
+      expect(match[:title]).to eq("The.Plague")
+      expect(match[:source]).to eq("AMZN.WEB-DL")
+      expect(match[:audio]).to eq("DDP5.1")
+      expect(match[:codec]).to eq("H.265")
+    end
+
+    it "matches filename with REPACK tag" do
+      filename = "Movie.2025.REPACK.720p.BluRay.x264.AAC-GROUP.mkv"
+      match = builder.movie_patterns.lazy.filter_map { |p| filename.match(p) }.first
+      expect(match).not_to be_nil
+      expect(match[:tags]).to eq("REPACK")
+    end
+
+    it "matches filename with video_tags and bit_depth" do
+      filename = "En.Tongs.Au.Pied.De.LHimalaya.2024.2160p.4K.WEB.x265.10bit.AAC5.1-WORLD.mkv"
+      match = builder.movie_patterns.lazy.filter_map { |p| filename.match(p) }.first
+      expect(match).not_to be_nil
+      expect(match[:title]).to eq("En.Tongs.Au.Pied.De.LHimalaya")
+      expect(match[:quality]).to eq("2160p")
+      expect(match[:source]).to eq("WEB")
+      expect(match[:codec]).to eq("x265")
+      expect(match[:audio]).to eq("AAC5.1")
+    end
+
+    it "matches P2P filename with bracket group" do
+      filename = "Anaconda.2025.2160p.iT.WEB-DL.DV.HDR10+.MULTi[Ben The Men].mp4"
+      match = builder.movie_patterns.lazy.filter_map { |p| filename.match(p) }.first
+      expect(match).not_to be_nil
+      expect(match[:title]).to eq("Anaconda")
+      expect(match[:source]).to eq("iT.WEB-DL")
+      expect(match[:extras]).to eq("DV.HDR10+.MULTi")
+      expect(match[:group]).to eq("[Ben The Men]")
     end
 
     it "does not match TV series filenames" do

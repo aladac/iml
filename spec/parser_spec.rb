@@ -52,6 +52,44 @@ RSpec.describe IML::Parser, :verified do
         result = parser.parse("Movie.Title.2020.720p.HDTV.H264.AAC-GROUP.mp4")
         expect(result.source).to eq("HDTV")
       end
+
+      it "handles AMZN WEB-DL with audio before codec" do
+        result = parser.parse("The.Plague.2025.REPACK.2160p.AMZN.WEB-DL.DDP5.1.H.265-BYNDR.mkv")
+        expect(result).to be_a(IML::Media::Movie)
+        expect(result.title).to eq("The Plague")
+        expect(result.source).to eq("Amazon")
+        expect(result.audio).to eq("E-AC3")
+        expect(result.channels).to eq("5.1")
+        expect(result.codec).to eq("h.265")
+      end
+
+      it "handles REPACK tag" do
+        result = parser.parse("Movie.2025.REPACK.720p.BluRay.x264.AAC-GROUP.mkv")
+        expect(result).to be_a(IML::Media::Movie)
+        expect(result.title).to eq("Movie")
+      end
+
+      it "handles 4K video tag and 10bit depth" do
+        result = parser.parse("En.Tongs.Au.Pied.De.LHimalaya.2024.2160p.4K.WEB.x265.10bit.AAC5.1-WORLD.mkv")
+        expect(result).to be_a(IML::Media::Movie)
+        expect(result.title).to eq("En Tongs Au Pied De LHimalaya")
+        expect(result.year).to eq("2024")
+        expect(result.quality).to eq("2160p")
+        expect(result.source).to eq("WEB")
+        expect(result.codec).to eq("h.265")
+        expect(result.audio).to eq("AAC")
+        expect(result.channels).to eq("5.1")
+      end
+
+      it "handles P2P with bracket group and no codec/audio" do
+        result = parser.parse("Anaconda.2025.2160p.iT.WEB-DL.DV.HDR10+.MULTi[Ben The Men].mp4")
+        expect(result).to be_a(IML::Media::Movie)
+        expect(result.title).to eq("Anaconda")
+        expect(result.year).to eq("2025")
+        expect(result.quality).to eq("2160p")
+        expect(result.source).to eq("iTunes")
+        expect(result.group).to eq("[Ben The Men]")
+      end
     end
 
     context "with TV series filenames" do

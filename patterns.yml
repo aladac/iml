@@ -6,8 +6,10 @@ quality:
 codec:
   x264: h.264
   h264: h.264
+  h.264: h.264
   x265: h.265
   h265: h.265
+  h.265: h.265
   avc: h.264
   xvid: Xvid
 source:
@@ -15,11 +17,20 @@ source:
   bdrip: BD
   dvdrip: DVD
   webrip: WEB
+  web-dl: WEB
   bluray: BD
   nf.web-dl: Netflix
+  nf.webrip: Netflix
   brrip: BD
   web: WEB
   amzn.webrip: Amazon
+  amzn.web-dl: Amazon
+  atvp.web-dl: Apple TV+
+  dsnp.web-dl: Disney+
+  hmax.web-dl: HBO Max
+  pcok.web-dl: Peacock
+  it.web-dl: iTunes
+  it.webrip: iTunes
 audio:
   aac:
     name: AAC
@@ -32,18 +43,39 @@ audio:
   dts-hd.ma.5.1:
     name: DTS-HD Master
     channels: '5.1'
+  dts-hd.ma.7.1:
+    name: DTS-HD Master
+    channels: '7.1'
   truehd.7.1.atmos:
     name: TrueHD Atmos
     channels: '7.1'
+  truehd.5.1:
+    name: TrueHD
+    channels: '5.1'
   dd5.1:
     name: AC3
     channels: '5.1'
+  dd2.0:
+    name: AC3
+    channels: '2.0'
   ddp5.1:
     name: E-AC3
+    channels: '5.1'
+  ddp2.0:
+    name: E-AC3
+    channels: '2.0'
+  ddp5.1.atmos:
+    name: E-AC3 Atmos
     channels: '5.1'
   aac2.0:
     name: AAC
     channels: '2.0'
+  aac5.1:
+    name: AAC
+    channels: '5.1'
+  eac3:
+    name: E-AC3
+tags: "(?:REPACK|PROPER|RERIP|INTERNAL|REAL|iNTERNAL)?"
 season: "\\d{2}"
 episode: "\\d{2}"
 episode_title: ".*?"
@@ -51,6 +83,9 @@ extension:
 - avi
 - mp4
 - mkv
-group: "[\\[\\]\\w]*?"
+extras: "(?:[\\w+]+\\.)*[\\w+]*"
+video_tags: "(?:(?:4K|UHD|HDR10\\+?|HDR|DV|SDR|HYBRID|MULTi)\\.?)*"
+bit_depth: "(?:(?:10bit|8bit|12bit)\\.?)?"
+group: "[\\[\\]\\w ]*?"
 title: ".*"
 year: "\\d{4}"
