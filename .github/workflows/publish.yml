@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 permissions:
-  contents: read
+  contents: write
   packages: write
   id-token: write
 
@@ -21,9 +21,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
-
-      - name: Build gem
-        run: gem build iml.gemspec
+          bundler-cache: true
 
       - name: Publish to RubyGems
         uses: rubygems/release-gem@v1
@@ -31,4 +29,4 @@ jobs:
       - name: Publish to GitHub Packages
         env:
           GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
-        run: gem push --host https://rubygems.pkg.github.com/${{ github.repository_owner }} *.gem
+        run: gem push --host https://rubygems.pkg.github.com/${{ github.repository_owner }} pkg/*.gem
