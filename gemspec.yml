@@ -1,12 +1,11 @@
 dependencies:
-  activesupport: ~> 5.2
-  tqdm: ~> 0.3
+  activesupport: '>= 7.1'
+  ostruct: '>= 0'
 
 development_dependencies:
-  codeclimate-test-reporter: ~> 1.0
-  bundler: ~> 1.16
-  rake: ~> 12.3
-  rspec: ~> 3.7
-  pry: ~> 0.11
-  simplecov: ~> 0.16
-  yard: ~> 0.9
+  bundler: '>= 2.4'
+  rake: '~> 13.0'
+  rspec: '~> 3.13'
+  simplecov: '~> 0.22'
+  standard: '~> 1.40'
+  yard: '~> 0.9'

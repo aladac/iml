@@ -11,7 +11,7 @@ class IML::Text < String
 
   # Convert IML::Text to desired title format
   def to_title
-    tr('.', ' ').tr('_', ' ').titleize
+    tr(".", " ").tr("_", " ").titleize
   end
 
   # Determine if IML::Text matches rules for a media type

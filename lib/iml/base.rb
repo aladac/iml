@@ -77,7 +77,7 @@ class IML::Base < OpenStruct
   end
 
   def final_audio_format?
-    return true if IML::Patterns.config.audio.values.map { |a| a[:name] }.include?(audio) || !audio
+    true if IML::Patterns.config.audio.values.map { |a| a[:name] }.include?(audio) || !audio
   end
 
   def delete_fields

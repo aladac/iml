@@ -17,9 +17,9 @@ class IML::Patterns
     m = config[method_name]
     super unless m
     if m.is_a?(Hash)
-      "(?<#{method_name}>(#{m.keys.join('|')}))"
+      "(?<#{method_name}>(#{m.keys.join("|")}))"
     elsif m.is_a?(Array)
-      "(?<#{method_name}>(#{m.join('|')}))"
+      "(?<#{method_name}>(#{m.join("|")}))"
     elsif m.is_a?(String)
       "(?<#{method_name}>#{m})"
     end
@@ -48,7 +48,7 @@ class IML::Patterns
   private
 
   def pattern_file
-    Pathname(__dir__) + '..' + '..' + 'patterns.yml'
+    Pathname(__dir__) + ".." + ".." + "patterns.yml"
   end
 
   def media_info
