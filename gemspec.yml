@@ -1,6 +1,4 @@
-dependencies:
-  activesupport: '>= 7.1'
-  ostruct: '>= 0'
+dependencies: {}
 
 development_dependencies:
   bundler: '>= 2.4'

@@ -7,23 +7,23 @@
 - [x] Step 1.4: Update Gemfile and run bundle install
 
 ## Phase 2: Architecture Rewrite — Composition Over Inheritance
-- [ ] Step 2.1: Create Configuration module (replace IML::Hash)
-- [ ] Step 2.2: Rewrite Pattern Builder (remove method_missing)
-- [ ] Step 2.3: Create Media Result value objects (replace OpenStruct)
-- [ ] Step 2.4: Create Formatter service
-- [ ] Step 2.5: Create Normalizer service
-- [ ] Step 2.6: Rewrite Parser (replace IML::Text < String)
-- [ ] Step 2.7: Create File Mover service
-- [ ] Step 2.8: Update main entry point (lib/iml.rb)
-- [ ] Step 2.9: Delete legacy files
+- [x] Step 2.1: Create Configuration module (replace IML::Hash)
+- [x] Step 2.2: Rewrite Pattern Builder (remove method_missing)
+- [x] Step 2.3: Create Media Result value objects (replace OpenStruct)
+- [x] Step 2.4: Create Formatter service
+- [x] Step 2.5: Create Normalizer service
+- [x] Step 2.6: Rewrite Parser (replace IML::Text < String)
+- [x] Step 2.7: Create File Mover service
+- [x] Step 2.8: Update main entry point (lib/iml.rb)
+- [x] Step 2.9: Delete legacy files
 
 ## Phase 3: CLI Modernization
 - [ ] Step 3.1: Rewrite CLI script (add --version, remove tqdm, proper exit codes)
 
 ## Phase 4: Remove ActiveSupport Dependency
-- [ ] Step 4.1: Replace ActiveSupport Inflector with lightweight titleize
-- [ ] Step 4.2: Remove HashWithIndifferentAccess usage
-- [ ] Step 4.3: Remove activesupport from gemspec
+- [x] Step 4.1: Replace ActiveSupport Inflector with lightweight titleize
+- [x] Step 4.2: Remove HashWithIndifferentAccess usage
+- [x] Step 4.3: Remove activesupport from gemspec
 
 ## Phase 5: Comprehensive Test Suite
 - [ ] Step 5.1: Set up test infrastructure (spec_helper, :verified tags)

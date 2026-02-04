@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
-# TV Series media file type class
-class IML::TVSeries < IML::Base
-  # Formatting placeholders for TV Series
+class IML::Media::TvSeries
+  ATTRIBUTES = %i[
+    title season episode episode_title quality source
+    codec audio channels group extension
+  ].freeze
+
   PLACEHOLDERS = {
     "%T" => :title,
     "%E" => :episode,
@@ -18,20 +21,24 @@ class IML::TVSeries < IML::Base
     "%z" => :source
   }.freeze
 
-  # Default formatting sting
   DEFAULT_FORMAT = "%T/Season %s/%T - S%SE%E.%f"
 
-  # @return <Boolean> always true for IML::TVSeries
-  def tv?
-    true
+  attr_reader(*ATTRIBUTES)
+
+  def initialize(**attrs)
+    ATTRIBUTES.each { |a| instance_variable_set(:"@#{a}", attrs[a]) }
   end
 
-  # @return <Integer> Season number in Integer
+  def movie? = false
+
+  def tv? = true
+
+  def type = :tv
+
   def season_i
     season.to_i
   end
 
-  # @return <Integer> episode number in Integer
   def episode_i
     episode.to_i
   end

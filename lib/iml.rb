@@ -1,27 +1,39 @@
 # frozen_string_literal: true
 
-require "open-uri"
 require "yaml"
-require "logger"
 require "fileutils"
-require "active_support/inflector"
-require "active_support/core_ext/object/blank"
-require "active_support/core_ext/hash"
-require "ostruct"
 require "iml/version"
-require "iml/base"
-require "iml/patterns"
-require "iml/text"
-require "iml/movie"
-require "iml/tvseries"
-require "iml/hash"
 
-begin
-  require "iml-imdb"
-rescue LoadError
-  # IMDB support disabled
-end
-
-# IML Namespace
 module IML
+  class Error < StandardError; end
+  class FileNotFoundError < Error; end
+
+  module Media; end
+
+  class << self
+    def configuration(path = nil)
+      if path
+        @configuration = Configuration.new(path)
+      else
+        @configuration ||= Configuration.new
+      end
+    end
+
+    def reset_configuration!
+      @configuration = nil
+    end
+
+    def parse(filename)
+      Parser.new.parse(filename)
+    end
+  end
 end
+
+require "iml/configuration"
+require "iml/pattern_builder"
+require "iml/normalizer"
+require "iml/formatter"
+require "iml/file_mover"
+require "iml/parser"
+require "iml/media/movie"
+require "iml/media/tv_series"
