@@ -23,10 +23,14 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
 
+      - name: Build gem
+        run: gem build iml.gemspec
+
       - name: Publish to RubyGems
         uses: rubygems/release-gem@v1
+        continue-on-error: true
 
       - name: Publish to GitHub Packages
         env:
           GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
-        run: gem push --host https://rubygems.pkg.github.com/${{ github.repository_owner }} pkg/*.gem
+        run: gem push --host https://rubygems.pkg.github.com/${{ github.repository_owner }} *.gem

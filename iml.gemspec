@@ -17,7 +17,6 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/aladac/iml"
   spec.license = "MIT"
 
-  spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["yard.run"] = "yri"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
