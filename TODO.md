@@ -18,7 +18,7 @@
 - [x] Step 2.9: Delete legacy files
 
 ## Phase 3: CLI Modernization
-- [ ] Step 3.1: Rewrite CLI script (add --version, remove tqdm, proper exit codes)
+- [x] Step 3.1: Rewrite CLI script (add --version, remove tqdm, proper exit codes)
 
 ## Phase 4: Remove ActiveSupport Dependency
 - [x] Step 4.1: Replace ActiveSupport Inflector with lightweight titleize
@@ -26,18 +26,18 @@
 - [x] Step 4.3: Remove activesupport from gemspec
 
 ## Phase 5: Comprehensive Test Suite
-- [ ] Step 5.1: Set up test infrastructure (spec_helper, :verified tags)
-- [ ] Step 5.2: Test Configuration
-- [ ] Step 5.3: Test Pattern Builder
-- [ ] Step 5.4: Test Parser
-- [ ] Step 5.5: Test Media Result objects (Movie, TvSeries)
-- [ ] Step 5.6: Test Formatter
-- [ ] Step 5.7: Test Normalizer
-- [ ] Step 5.8: Test File Mover
-- [ ] Step 5.9: Delete legacy tests
+- [x] Step 5.1: Set up test infrastructure (spec_helper, :verified tags)
+- [x] Step 5.2: Test Configuration
+- [x] Step 5.3: Test Pattern Builder
+- [x] Step 5.4: Test Parser
+- [x] Step 5.5: Test Media Result objects (Movie, TvSeries)
+- [x] Step 5.6: Test Formatter
+- [x] Step 5.7: Test Normalizer
+- [x] Step 5.8: Test File Mover
+- [x] Step 5.9: Delete legacy tests
 
 ## Phase 6: Final Cleanup and Verification
-- [ ] Step 6.1: Run StandardRB and fix issues
-- [ ] Step 6.2: Run full test suite
-- [ ] Step 6.3: Build and verify gem
-- [ ] Step 6.4: Update README
+- [x] Step 6.1: Run StandardRB and fix issues
+- [x] Step 6.2: Run full test suite
+- [x] Step 6.3: Build and verify gem
+- [x] Step 6.4: Update README
