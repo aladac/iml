@@ -1,22 +1,22 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "iml"
-require "optparse"
+require 'iml'
+require 'optparse'
 
 options = {}
 
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($PROGRAM_NAME)} [options] MEDIA_FILE [MEDIA_FILE] ..."
 
-  opts.on("-v", "--[no-]verbose", "Run verbosely") { |v| options[:verbose] = v }
-  opts.on("-p", "--[no-]pretend", "Dry run, do not move any files") { |p| options[:pretend] = p }
-  opts.on("-t", "--target PATH", "Output directory (default: current directory)") { |t| options[:target] = t }
-  opts.on("-o", "--movie-format FORMAT", "Movie output format (default: '#{IML::Media::Movie::DEFAULT_FORMAT}')") { |f| options[:movie_format] = f }
-  opts.on("-O", "--tv-format FORMAT", "TV series output format (default: '#{IML::Media::TvSeries::DEFAULT_FORMAT}')") { |f| options[:tv_format] = f }
-  opts.on("-l", "--list-formats", "Show format placeholders") { options[:list_formats] = true }
-  opts.on("-f", "--force", "Overwrite existing output files") { options[:force] = true }
-  opts.on("-V", "--version", "Show version") do
+  opts.on('-v', '--[no-]verbose', 'Run verbosely') { |v| options[:verbose] = v }
+  opts.on('-p', '--[no-]pretend', 'Dry run, do not move any files') { |p| options[:pretend] = p }
+  opts.on('-t', '--target PATH', 'Output directory (default: current directory)') { |t| options[:target] = t }
+  opts.on('-o', '--movie-format FORMAT', "Movie output format (default: '#{IML::Media::Movie::DEFAULT_FORMAT}')") { |f| options[:movie_format] = f }
+  opts.on('-O', '--tv-format FORMAT', "TV series output format (default: '#{IML::Media::TvSeries::DEFAULT_FORMAT}')") { |f| options[:tv_format] = f }
+  opts.on('-l', '--list-formats', 'Show format placeholders') { options[:list_formats] = true }
+  opts.on('-f', '--force', 'Overwrite existing output files') { options[:force] = true }
+  opts.on('-V', '--version', 'Show version') do
     puts "iml #{IML::VERSION}"
     exit
   end
@@ -25,7 +25,7 @@ end
 begin
   parser.parse!
 rescue OptionParser::InvalidOption => e
-  $stderr.puts e.message
+  warn e.message
   exit 1
 end
 
@@ -55,12 +55,12 @@ if options[:list_formats]
 end
 
 input = if ARGV.any?
-  ARGV
-elsif !$stdin.tty?
-  $stdin.readlines
-else
-  []
-end
+          ARGV
+        elsif !$stdin.tty?
+          $stdin.readlines
+        else
+          []
+        end
 media_parser = IML::Parser.new
 formatter = IML::Formatter.new
 mover = IML::FileMover.new(formatter: formatter)
@@ -73,34 +73,30 @@ input.each do |entry|
   filename = path.basename.to_s
 
   unless path.exist?
-    $stderr.puts "skip: #{path} (file not found)"
+    warn "skip: #{path} (file not found)"
     skipped += 1
     next
   end
 
   media = media_parser.parse(filename)
   unless media
-    $stderr.puts "skip: #{path} (not recognized)" if options[:verbose] || options[:pretend]
+    warn "skip: #{path} (not recognized)" if options[:verbose] || options[:pretend]
     skipped += 1
     next
   end
 
   format = media.movie? ? options[:movie_format] : options[:tv_format]
   dest = formatter.pathname(media, format: format, target: options[:target])
-  type_label = media.movie? ? "movie" : "tv"
+  type_label = media.movie? ? 'movie' : 'tv'
 
-  if options[:verbose] || options[:pretend]
-    $stderr.puts "#{type_label}: #{path} -> #{dest}"
-  end
+  warn "#{type_label}: #{path} -> #{dest}" if options[:verbose] || options[:pretend]
 
-  unless options[:pretend]
-    mover.call(path, media, format: format, target: options[:target])
-  end
+  mover.call(path, media, format: format, target: options[:target]) unless options[:pretend]
 
   processed += 1
 rescue IML::FileNotFoundError => e
-  $stderr.puts "error: #{path} (#{e.message})"
+  warn "error: #{path} (#{e.message})"
   skipped += 1
 end
 
-$stderr.puts "done: #{processed} processed, #{skipped} skipped" if options[:verbose] || options[:pretend]
+warn "done: #{processed} processed, #{skipped} skipped" if options[:verbose] || options[:pretend]

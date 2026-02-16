@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "yaml"
-require "fileutils"
-require "iml/version"
+require 'yaml'
+require 'fileutils'
+require 'iml/version'
 
 module IML
   class Error < StandardError; end
@@ -29,11 +29,11 @@ module IML
   end
 end
 
-require "iml/configuration"
-require "iml/pattern_builder"
-require "iml/normalizer"
-require "iml/formatter"
-require "iml/file_mover"
-require "iml/parser"
-require "iml/media/movie"
-require "iml/media/tv_series"
+require 'iml/configuration'
+require 'iml/pattern_builder'
+require 'iml/normalizer'
+require 'iml/formatter'
+require 'iml/file_mover'
+require 'iml/parser'
+require 'iml/media/movie'
+require 'iml/media/tv_series'
